@@ -11,23 +11,30 @@
 # include<iostream>
 # include<string.h>
 using namespace std;
+
 unsigned long long int fact(int); //For Finding Factorial
 int assign(char);   //For Converting Character to corresponding Number
 char charassign(int);//For Converting Number to corresponding Character
 int keycheck(int); //To Check Key Validity
 int key;
-void en(){ //Encoding the Message
-    char message[20]={},encrypted[20]={};
-    unsigned long long int TaylorC,Rem,Quo,secret[20]={};
+
+void en()
+{   
+    //Encoding the Message
+    char message[100]={},encrypted[100]={};
+    unsigned long long int TaylorC,Rem,Quo,secret[100]={};
     cout<<"Enter a Word you want to encrypt: ";
-    cin>>message;
+    cin.getline(message,100);
+    //cin>>message;
     Bac:
     cout<<"Enter a Security Key(Not More Than 84): ";
     cin>>key;
-    if(keycheck(key)){
+    if(keycheck(key))
+    {
         goto Bac;
     }
-    for(int i = 0;i<strlen(message);i++){
+    for(int i = 0;i<strlen(message);i++)
+    {
         TaylorC = assign(message[i])*fact(i+3); //Converting the Message to Taylor Series Constants
         Rem = TaylorC%key; //Finding Remainder to make Encrypted Message
 
@@ -44,28 +51,35 @@ void en(){ //Encoding the Message
         
     cout<<endl;;
 }
-void de(){ //Decoding the Message
-    char message[20]={},encrypted[20]={};
-    unsigned long long int TaylorC,secret[20]={};
+void de()
+{   
+    //Decoding the Message
+    char message[100]={},encrypted[100]={};
+    unsigned long long int TaylorC,secret[100]={};
     cout<<"Enter a Decrypted Text: ";
-    cin>>encrypted;
+    cin.getline(encrypted,100);
+    //cin>>encrypted;
     back:
     cout<<"Enter a Security Key used for Encryption(Not More Than 84): ";
     cin>>key;
-    if(keycheck(key)){
+    if(keycheck(key))
+    {
         goto back;
     }
     cout<<"Enter the Secret Key: ";
-    for(int i = 0;i<strlen(encrypted);i++){
+    for(int i = 0;i<strlen(encrypted);i++)
+    {
         cin>>secret[i];
     }
-    for(int i = 0;i<strlen(encrypted);i++){
+    for(int i = 0;i<strlen(encrypted);i++)
+    {
         TaylorC = key*secret[i]+assign(encrypted[i]);//Finding The Taylor Series Coefficient
         message[i]=charassign(TaylorC/fact(i+3));//Storing the Decoded Message
     }
     cout<<message;
 }
-int main(){
+int main()
+{
     int n;
     cout<<"Welcome to                 ________  ________  "<<endl;
     cout<<"     /\\        |\\     |   |         |        " <<endl;
@@ -78,13 +92,16 @@ int main(){
     Start:
     cout<<"Click\n1.Encryption\n2.Decryption"<<endl;
     cin>>n;
-    if(n==1){
+    if(n==1)
+    {
         en();
     }
-    if(n==2){
+    if(n==2)
+    {
         de();
     }
-    if(n!=1 && n!=2){
+    if(n!=1 && n!=2)
+    {
         cout<<"Invalid Input"<<endl;
         goto Start;
     }
@@ -93,25 +110,31 @@ int main(){
     cout<<"Enter any other key to EXIT: ";
     int flag;
     cin>>flag;
-    if(flag==1){
+    if(flag==1)
+    {
         goto Start;
     }
     return 0;
 }
-unsigned long long int fact(int n){
+unsigned long long int fact(int n)
+{
     if(n==1)
         return 1;
     return (n*fact(n-1));
 }
-int keycheck(int valid){
-    if(valid>84){
+int keycheck(int valid)
+{
+    if(valid>84)
+    {
         cout<<"Invalid Key(Valid Key Below 84)"<<endl;
         return 1;
     }
     return 0;
 }
-int assign(char c){
-    switch(c){
+int assign(char c)
+{
+    switch(c)
+    {
         case 'A': return 0;
         case 'B': return 1;
         case 'C': return 2;
@@ -200,8 +223,10 @@ int assign(char c){
     }
     return 0;
 }
-char charassign(int c){
-    switch(c){
+char charassign(int c)
+{
+    switch(c)
+    {
         case 0: return 'A';
         case 1: return 'B';
         case 2: return 'C';
